@@ -10,4 +10,4 @@ A clean, modern, and real-time digital clock built with fundamental front-end te
 
 ## How to Run
 1.  Download the `index.html` file from this repository.
-2.  Open the file in any modern web browser (like Chrome, Firefox, or Edge).
+2.  Open the file in any modern web browser (like Chrome or Edge).
