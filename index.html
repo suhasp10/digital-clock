@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <!-- Tailwind CSS for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for a clear, digital-style font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles as described in the project document */
+        body {
+            /* Using flexbox to center the clock container */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #1f2937; /* A dark background (bg-gray-800) */
+            font-family: 'Inter', sans-serif;
+            color: #f9fafb; /* text-white */
+        }
+        .clock-container {
+            text-align: center;
+            background-color: rgba(31, 41, 55, 0.7); /* A slightly transparent background */
+            padding: 3rem 4rem;
+            border-radius: 1.5rem; /* rounded-2xl */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border: 1px solid #4b5563; /* border-gray-600 */
+        }
+        .clock {
+            /* Using the 'Orbitron' font for a digital look */
+            font-family: 'Orbitron', sans-serif;
+            font-size: 5rem; /* 3rem was a bit small, increased for impact */
+            letter-spacing: 0.25rem; /* 2px was good, increased slightly */
+            color: #6ee7b7; /* A nice mint green color (emerald-300) */
+            text-shadow: 0 0 15px rgba(110, 231, 183, 0.5);
+        }
+        .date {
+            font-size: 1.25rem;
+            margin-top: 1rem;
+            color: #9ca3af; /* text-gray-400 */
+        }
+    </style>
+</head>
+<body>
+    <!-- The main container for the clock UI -->
+    <div class="clock-container">
+        <!-- This is where the time will be displayed -->
+        <h1 class="clock" id="clock">00:00:00 AM</h1>
+        <!-- (Extra Challenge) This is where the date will be displayed -->
+        <p class="date" id="date">Loading...</p>
+    </div>
+
+    <script>
+        // JavaScript functionality as described in the project document
+        
+        // Get the clock and date elements from the HTML
+        const clockElement = document.getElementById('clock');
+        const dateElement = document.getElementById('date');
+
+        /**
+         * This function gets the current time and updates the display.
+         */
+        function updateClock() {
+            // 1. Get the current time
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+            
+            // Determine if it's AM or PM
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+
+            // 2. Convert to 12-hour format
+            hours = hours % 12;
+            hours = hours ? hours : 12; // The hour '0' should be '12'
+
+            // 3. Pad minutes and seconds with leading zeros if they are less than 10
+            hours = hours.toString().padStart(2, '0');
+            minutes = minutes.toString().padStart(2, '0');
+            seconds = seconds.toString().padStart(2, '0');
+
+            // 4. Create the final time string in HH:MM:SS AM/PM format
+            const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
+            
+            // 5. Update the clock element's text
+            clockElement.textContent = timeString;
+
+            // (Extra Challenge) Format and display the current date
+            const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const dateString = now.toLocaleDateString('en-US', dateOptions);
+            dateElement.textContent = dateString;
+        }
+
+        // 6. Update the clock every second (1000 milliseconds)
+        setInterval(updateClock, 1000);
+
+        // 7. Call the function once immediately on page load to prevent a delay
+        updateClock();
+    </script>
+</body>
+</html>
+
